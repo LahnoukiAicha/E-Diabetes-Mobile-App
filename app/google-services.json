@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "353575345547",
+    "firebase_url": "https://slfb-b6df9-default-rtdb.firebaseio.com",
+    "project_id": "slfb-b6df9",
+    "storage_bucket": "slfb-b6df9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353575345547:android:2a5a8e074b110800a6a38e",
+        "android_client_info": {
+          "package_name": "com.example.slfb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LmTtZEL9_0--4-hzdaim39rBJz9xAlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

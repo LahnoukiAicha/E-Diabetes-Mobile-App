@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501955104111",
+    "project_id": "signuploginfb-ebf81",
+    "storage_bucket": "signuploginfb-ebf81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501955104111:android:aaabf2c9b108f4ffe52c9a",
+        "android_client_info": {
+          "package_name": "com.example.signuploginfb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDecRzbCnz0rMxB9cBbiCwXchEqUSC-CZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
