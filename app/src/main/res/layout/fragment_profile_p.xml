@@ -31,17 +31,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_edittext"
+                android:background="@drawable/custom_edittext1"
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <!-- Profile name -->
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:alpha="0.5"
-                    android:background="@color/lavender" />
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="256dp"
+                    android:layout_height="101dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

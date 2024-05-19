@@ -11,111 +11,124 @@
     tools:context=".doctor.DataActivityD">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="326dp"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="556dp"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
-        <LinearLayout
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_edittext1"
-            android:orientation="vertical"
-            android:padding="24dp">
+        <ScrollView
+            android:layout_width="309dp"
+            android:layout_height="582dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="8dp">
 
-            <TextView
-                android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:text="Insert your Data"
-                android:textAlignment="center"
-                android:textColor="@color/purple"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/d_about"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_edittext1"
-                android:drawableLeft="@drawable/ic_baseline_text_snippet_25"
-                android:drawablePadding="8dp"
-                android:hint="About"
-                android:padding="8dp"
-                android:textColor="@color/black" />
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Insert your Data"
+                    android:textAlignment="center"
+                    android:textColor="@color/purple"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    app:srcCompat="@drawable/aklogo" />
+
+                <Button
+                    android:id="@+id/browse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Browse" />
+
+                <EditText
+                    android:id="@+id/d_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/custom_edittext1"
+                    android:drawableLeft="@drawable/ic_baseline_text_snippet_25"
+                    android:drawablePadding="8dp"
+                    android:hint="About"
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
+
+                <EditText
                     android:id="@+id/d_address"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext1"
-                android:drawableLeft="@drawable/ic_baseline_email_25"
-                android:drawablePadding="8dp"
-                android:hint="Address"
-                android:padding="8dp"
-                android:textColor="@color/black" />
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custom_edittext1"
+                    android:drawableLeft="@drawable/ic_baseline_email_25"
+                    android:drawablePadding="8dp"
+                    android:hint="Address"
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/d_experience"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext1"
-                android:drawableLeft="@drawable/ic_baseline_phone_25"
-                android:drawablePadding="8dp"
-                android:hint="Experience"
-                android:padding="8dp"
-                android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/d_experience"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custom_edittext1"
+                    android:drawableLeft="@drawable/ic_baseline_phone_25"
+                    android:drawablePadding="8dp"
+                    android:hint="Experience"
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
 
 
-            <EditText
-                android:id="@+id/d_education"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext1"
-                android:drawableLeft="@drawable/ic_baseline_lock_25"
-                android:drawablePadding="8dp"
-                android:hint="Education"
-                android:padding="8dp"
-                android:textColor="@color/black" />
-            <Button
-                android:id="@+id/select_image_button"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/purple_200"
-                android:text="Select Image"
-                android:textSize="18sp"
-                app:cornerRadius="20dp" />
+                <EditText
+                    android:id="@+id/d_education"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custom_edittext1"
+                    android:drawableLeft="@drawable/ic_baseline_lock_25"
+                    android:drawablePadding="8dp"
+                    android:hint="Education"
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/signup_button"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/purple"
-                android:text="Insert"
-                android:textSize="18sp"
-                app:cornerRadius="20dp" />
+                <Button
+                    android:id="@+id/signup_button"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/purple"
+                    android:text="Insert"
+                    android:textSize="18sp"
+                    app:cornerRadius="20dp" />
 
-            <TextView
-                android:id="@+id/loginRedirectText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:padding="8dp"
-                android:text="Already an user? Login"
-                android:textColor="@color/purple_100"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/loginRedirectText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:text="Already an user? Login"
+                    android:textColor="@color/purple_100"
+                    android:textSize="18sp" />
 
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 

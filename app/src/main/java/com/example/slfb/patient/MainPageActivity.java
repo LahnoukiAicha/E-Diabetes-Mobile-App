@@ -37,9 +37,9 @@ public class MainPageActivity extends AppCompatActivity {
             if (itemId == R.id.bottom_home) {
                 replaceFragment(new HomePFragment());
             } else if (itemId == R.id.bottom_record) {
-                replaceFragment(new RecordFragment());
+                replaceFragment(new TodayInfoFragment());
             } else if (itemId == R.id.bottom_doctor) {
-                replaceFragment(new MyDoctorFragment());
+                replaceFragment(new DoctorListFragment());
             } else if (itemId == R.id.bottom_chat) {
                 replaceFragment(new ChatFragment());
             }

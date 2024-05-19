@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,14 +22,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ProfileFragmentP extends Fragment {
 
     TextView profileName, profileEmail, profilePhone, profileHeight, profileWeight, profileSex, profileSleepDuration, profileDiabetesSince, profileAge, profileActivityLevel;
     Button editProfile;
+    ImageView img;
     private FirebaseAuth mauth;
 
-    private String name, email, phone, height, weight, sex, sleepDuration, diabetesSince, age, activityLevel;
+    private String name, email, phone, height, weight, sex, sleepDuration, diabetesSince, age, activityLevel,imageUrl;
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class ProfileFragmentP extends Fragment {
         profileDiabetesSince = view.findViewById(R.id.profileDiabetesSince);
         profileAge = view.findViewById(R.id.profileAge);
         profileActivityLevel = view.findViewById(R.id.profileActivityLevel);
+        img=view.findViewById(R.id.img);
         editProfile = view.findViewById(R.id.editButton);
 
         // Initialize FirebaseAuth
@@ -66,12 +70,12 @@ public class ProfileFragmentP extends Fragment {
         if (user != null) {
             String userId = user.getUid();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("patients").child(userId);
+            DatabaseReference getImage = reference.child("image");
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        // Assuming there's only one patient node for simplicity, you might need to adjust this logic if there are multiple patients
                         name = snapshot.child("name").getValue(String.class);
                         email = snapshot.child("email").getValue(String.class);
                         phone = snapshot.child("phone").getValue(String.class);
@@ -82,6 +86,8 @@ public class ProfileFragmentP extends Fragment {
                         diabetesSince = snapshot.child("diabetesSince").getValue(String.class);
                         age = snapshot.child("age").getValue(String.class);
                         activityLevel = snapshot.child("activityLevel").getValue(String.class);
+                        imageUrl = snapshot.child("image").getValue(String.class);
+
 
                         // Set the retrieved data to the TextViews
                         profileName.setText(name);
@@ -94,6 +100,7 @@ public class ProfileFragmentP extends Fragment {
                         profileDiabetesSince.setText(diabetesSince);
                         profileAge.setText(age);
                         profileActivityLevel.setText(activityLevel);
+                        Picasso.get().load(imageUrl).into(img);
                     }
                 }
 

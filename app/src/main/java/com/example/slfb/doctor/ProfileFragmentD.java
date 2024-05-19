@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 import com.example.slfb.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,8 +28,10 @@ public class ProfileFragmentD extends Fragment {
 
     TextView profileName, profileEmail, profilePhone, profileAddress, profileAbout, profileEducation, profileExperience;
     Button editProfile;
+    ImageView img;
+    private FirebaseAuth mauth;
 
-    private String name, email, phone, address, about, education, experience, password;
+    private String name, email, phone, address, about, education, experience, password,imageUrl;
 
     @Nullable
     @Override
@@ -39,7 +45,10 @@ public class ProfileFragmentD extends Fragment {
         profileAbout = view.findViewById(R.id.profileAbout);
         profileEducation = view.findViewById(R.id.profileEducation);
         profileExperience = view.findViewById(R.id.profileExperience);
+        img=view.findViewById(R.id.img);
         editProfile = view.findViewById(R.id.editButton);
+        mauth = FirebaseAuth.getInstance();
+
 
         // Retrieve user data once
         retrieveUserData();
@@ -53,41 +62,47 @@ public class ProfileFragmentD extends Fragment {
 
     // Method to retrieve user data from Firebase
     private void retrieveUserData() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("docs");
+        FirebaseUser user = mauth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("docs").child(userId);
+            DatabaseReference getImage = reference.child("image");
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    // Assuming there's only one doctor node for simplicity, you might need to adjust this logic if there are multiple doctors
-                    DataSnapshot doctorSnapshot = snapshot.getChildren().iterator().next();
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
 
-                    name = doctorSnapshot.child("name").getValue(String.class);
-                    email = doctorSnapshot.child("email").getValue(String.class);
-                    phone = doctorSnapshot.child("phone").getValue(String.class);
-                    address = doctorSnapshot.child("address").getValue(String.class);
-                    about = doctorSnapshot.child("about").getValue(String.class);
-                    education = doctorSnapshot.child("education").getValue(String.class);
-                    experience = doctorSnapshot.child("experience").getValue(String.class);
-                    password = doctorSnapshot.child("password").getValue(String.class);
+                        name = snapshot.child("name").getValue(String.class);
+                        email = snapshot.child("email").getValue(String.class);
+                        phone = snapshot.child("phone").getValue(String.class);
+                        address = snapshot.child("address").getValue(String.class);
+                        about = snapshot.child("about").getValue(String.class);
+                        education = snapshot.child("education").getValue(String.class);
+                        experience = snapshot.child("experience").getValue(String.class);
+                        password = snapshot.child("password").getValue(String.class);
+                        imageUrl = snapshot.child("image").getValue(String.class);
 
-                    // Set the retrieved data to the TextViews
-                    profileName.setText(name);
-                    profileEmail.setText(email);
-                    profilePhone.setText(phone);
-                    profileAddress.setText(address);
-                    profileAbout.setText(about);
-                    profileEducation.setText(education);
-                    profileExperience.setText(experience);
+
+                        // Set the retrieved data to the TextViews
+                        profileName.setText(name);
+                        profileEmail.setText(email);
+                        profilePhone.setText(phone);
+                        profileAddress.setText(address);
+                        profileAbout.setText(about);
+                        profileEducation.setText(education);
+                        profileExperience.setText(experience);
+                        Picasso.get().load(imageUrl).into(img);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle any errors
-                Log.e("ProfileFragmentD", "Failed to read value.", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle any errors
+                    Log.e("ProfileFragmentD", "Failed to read value.", error.toException());
+                }
+            });
+        }
     }
 
     // Method to pass user data to EditProfileFragmentD

@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">SOUADAT</string>
+    <string name="app_name">pfsMain</string>
+    <string name="blood_glucose_level_mg_dl">Blood Glucose Level (mg/dL)</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="insulin_dosage_units">Insulin Dosage (units)</string>
+    <string name="notes">Notes</string>
+    <string name="insert_data">Insert Data</string>
+    <string name="view_history">View History</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
