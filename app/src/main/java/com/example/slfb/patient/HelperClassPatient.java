@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class HelperClassPatient extends HelperClass {
     private String age,height,weight,sleepDuration;
-    private String activityLevel,sex;
+    private String activityLevel,sex,image;
     private String diabetesSince;
 
     public HelperClassPatient() {
@@ -22,7 +22,15 @@ public class HelperClassPatient extends HelperClass {
         this.sex=sex;
     }
 
-    public HelperClassPatient(String name, String email, String phone, String password, String age, String height, String weight,String sex, String sleepDuration, String activityLevel, String diabetesSince) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public HelperClassPatient(String name, String email, String phone, String password, String age, String height, String weight, String sex, String sleepDuration, String activityLevel, String diabetesSince, String image) {
         super(name, email, phone, password);
         this.age = age;
         this.height = height;
@@ -31,6 +39,7 @@ public class HelperClassPatient extends HelperClass {
         this.activityLevel = activityLevel;
         this.diabetesSince = diabetesSince;
         this.sex=sex;
+        this.image=image;
     }
 
     public String getSex() {

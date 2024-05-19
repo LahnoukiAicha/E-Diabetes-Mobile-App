@@ -40,10 +40,10 @@ public class MainPageActivityD extends AppCompatActivity {
 
             int itemId = item.getItemId();
             if (itemId == R.id.bottom_home) {
-                replaceFragment(new com.example.slfb.patient.HomePFragment());
+                replaceFragment(new HomePFragment());
             }
             if (itemId == R.id.bottom_record) {
-                replaceFragment(new RecordFragment());
+                replaceFragment(new MyAppointmentsFragment());
             }
             if (itemId == R.id.bottom_patient) {
                 replaceFragment(new MyPatientFragment());

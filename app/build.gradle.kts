@@ -45,6 +45,13 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation (libs.firebase.auth)
+    implementation (libs.glide)
+    implementation (libs.picasso)
+    implementation (libs.firebase.messaging)
+    implementation ("com.android.volley:volley:1.2.1")
+    implementation ("com.google.firebase:firebase-appcheck-playintegrity:16.0.0")
+
+
 
 
 }

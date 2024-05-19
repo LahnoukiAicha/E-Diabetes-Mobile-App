@@ -16,6 +16,14 @@
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
+        <ScrollView
+            android:layout_width="309dp"
+            android:layout_height="582dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="8dp">
+
 
         <LinearLayout
             android:layout_width="330dp"
@@ -33,6 +41,18 @@
                 android:textColor="@color/purple"
                 android:textSize="36sp"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/aklogo" />
+
+            <Button
+                android:id="@+id/browse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Browse" />
 
             <EditText
                 android:id="@+id/p_age"
@@ -143,6 +163,7 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 
