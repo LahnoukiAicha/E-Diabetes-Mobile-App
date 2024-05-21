@@ -42,6 +42,11 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/dialog_background</item> <!-- Drawable pour l'arrière-plan arrondi -->
+        <!-- Couleur du texte principal (titre, message) -->
+    </style>
 
 
 

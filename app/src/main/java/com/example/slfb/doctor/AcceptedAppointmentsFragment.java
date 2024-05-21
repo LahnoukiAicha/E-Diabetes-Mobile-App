@@ -51,7 +51,7 @@ public class AcceptedAppointmentsFragment extends Fragment {
                 acceptedAppointments.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Appointment appointment = snapshot.getValue(Appointment.class);
-                    if (appointment != null && appointment.isAccepted()) {
+                    if (appointment != null &&  appointment.isAccepted()) {
                         acceptedAppointments.add(appointment);
                     }
                 }

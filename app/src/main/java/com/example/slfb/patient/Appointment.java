@@ -1,6 +1,8 @@
 package com.example.slfb.patient;
 
 public class Appointment {
+    private String id;         // Add this line
+    private String doctorId;
     private String date;
     private String time;
     private String doctorName;
@@ -8,31 +10,39 @@ public class Appointment {
     private String patientName;
     private boolean accepted;
 
-    // Constructeur par défaut nécessaire pour Firebase
+    // Default constructor required for Firebase
     public Appointment() {
     }
 
-
-
-    public boolean isAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
-    }
-
-    // Constructeur avec paramètres
-    public Appointment(String date, String time, String doctorName, String patientId, String patientName,boolean accepted) {
+    // Constructor with parameters
+    public Appointment(String id, String doctorId, String date, String time, String doctorName, String patientId, String patientName, boolean accepted) {
+        this.id = id;     // Add this line
+        this.doctorId = doctorId;
         this.date = date;
         this.time = time;
         this.doctorName = doctorName;
         this.patientId = patientId;
         this.patientName = patientName;
-        this.accepted=accepted;
+        this.accepted = accepted;
     }
 
-    // Getters et setters
+    // Getters and setters
+    public String getId() {
+        return id;     // Add this line
+    }
+
+    public void setId(String id) {
+        this.id = id;     // Add this line
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public String getDate() {
         return date;
     }
@@ -71,5 +81,13 @@ public class Appointment {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 }

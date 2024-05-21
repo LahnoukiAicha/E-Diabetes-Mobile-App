@@ -49,7 +49,6 @@ public class ProfileFragmentD extends Fragment {
         editProfile = view.findViewById(R.id.editButton);
         mauth = FirebaseAuth.getInstance();
 
-
         // Retrieve user data once
         retrieveUserData();
 
@@ -65,41 +64,42 @@ public class ProfileFragmentD extends Fragment {
         FirebaseUser user = mauth.getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("docs").child(userId);
-            DatabaseReference getImage = reference.child("image");
+             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("docs").child(userId);
+             DatabaseReference getImage = reference.child("image");
 
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
+                    // Assuming there's only one doctor node for simplicity, you might need to adjust this logic if there are multiple doctors
+                    DataSnapshot doctorSnapshot = snapshot.getChildren().iterator().next();
 
-                        name = snapshot.child("name").getValue(String.class);
-                        email = snapshot.child("email").getValue(String.class);
-                        phone = snapshot.child("phone").getValue(String.class);
-                        address = snapshot.child("address").getValue(String.class);
-                        about = snapshot.child("about").getValue(String.class);
-                        education = snapshot.child("education").getValue(String.class);
-                        experience = snapshot.child("experience").getValue(String.class);
-                        password = snapshot.child("password").getValue(String.class);
-                        imageUrl = snapshot.child("image").getValue(String.class);
+                    name = doctorSnapshot.child("name").getValue(String.class);
+                    email = doctorSnapshot.child("email").getValue(String.class);
+                    phone = doctorSnapshot.child("phone").getValue(String.class);
+                    address = doctorSnapshot.child("address").getValue(String.class);
+                    about = doctorSnapshot.child("about").getValue(String.class);
+                    education = doctorSnapshot.child("education").getValue(String.class);
+                    experience = doctorSnapshot.child("experience").getValue(String.class);
+                    password = doctorSnapshot.child("password").getValue(String.class);
+                    imageUrl = doctorSnapshot.child("image").getValue(String.class);
 
 
-                        // Set the retrieved data to the TextViews
-                        profileName.setText(name);
-                        profileEmail.setText(email);
-                        profilePhone.setText(phone);
-                        profileAddress.setText(address);
-                        profileAbout.setText(about);
-                        profileEducation.setText(education);
-                        profileExperience.setText(experience);
-                        Picasso.get().load(imageUrl).into(img);
-                    }
+                    // Set the retrieved data to the TextViews
+                    profileName.setText(name);
+                    profileEmail.setText(email);
+                    profilePhone.setText(phone);
+                    profileAddress.setText(address);
+                    profileAbout.setText(about);
+                    profileEducation.setText(education);
+                    profileExperience.setText(experience);
+                    Picasso.get().load(imageUrl).into(img);
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle any errors
-                    Log.e("ProfileFragmentD", "Failed to read value.", error.toException());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle any errors
+                Log.e("ProfileFragmentD", "Failed to read value.", error.toException());
                 }
             });
         }

@@ -1,6 +1,7 @@
 package com.example.slfb.patient;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,10 @@ public class DoctorListFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 helperClassDList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Log.d("snapchot", String.valueOf(snapshot));
                     HelperClassD helperClassD = snapshot.getValue(HelperClassD.class);
+                    assert helperClassD != null;
+                    helperClassD.setId(snapshot.getKey());
                     helperClassDList.add(helperClassD);
                 }
                 adapter.notifyDataSetChanged();
@@ -61,6 +65,7 @@ public class DoctorListFragment extends Fragment {
                 Fragment doctorProfileFragment = new DoctorProfileFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("doctorName", helperClassD.getName());
+                bundle.putString("doctorId", helperClassD.getId());
                 doctorProfileFragment.setArguments(bundle);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout, doctorProfileFragment)
