@@ -1,8 +1,9 @@
 package com.example.slfb.patient;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class BookAppointmentFragment extends Fragment {
 
@@ -48,6 +50,7 @@ public class BookAppointmentFragment extends Fragment {
 
         if (getArguments() != null) {
             doctorName = getArguments().getString("doctorName");
+            doctorId = getArguments().getString("doctorId");
         }
     }
 
@@ -59,8 +62,12 @@ public class BookAppointmentFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendarView);
         saveButton = view.findViewById(R.id.bookButton);
 
+        // Set the minimum date to today to disable past dates
+        Calendar today = Calendar.getInstance();
+        calendarView.setMinDate(today.getTimeInMillis());
+
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
-            selectedDate = String.format(Locale.getDefault(), "%d-%d-%d", dayOfMonth, month + 1, year);
+            selectedDate = String.format(Locale.getDefault(), "%d - %d - %d", dayOfMonth, month + 1, year);
             ((EditText) view.findViewById(R.id.etDate)).setText(selectedDate);
         });
 
@@ -104,7 +111,14 @@ public class BookAppointmentFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         patientName = dataSnapshot.child("name").getValue(String.class);
-                        saveAppointmentToFirebase(selectedDate, selectedTime, doctorName, patientId, patientName);
+
+                        checkAppointmentAvailability(selectedDate, selectedTime, doctorName, isAvailable -> {
+                            if (isAvailable) {
+                                saveAppointmentToFirebase(doctorId,selectedDate, selectedTime, doctorName, patientId, patientName);
+                            } else {
+                                showAppointmentNotAvailableDialog();
+                            }
+                        });
                     } else {
                         Toast.makeText(getActivity(), "Patient data not found", Toast.LENGTH_SHORT).show();
                     }
@@ -120,19 +134,18 @@ public class BookAppointmentFragment extends Fragment {
         }
     }
 
-    private void saveAppointmentToFirebase(String date, String time, String doctorName, String patientId, String patientName) {
+
+    private void saveAppointmentToFirebase(String doctorId, String date, String time, String doctorName, String patientId, String patientName) {
         DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
         String appointmentId = appointmentsRef.push().getKey();
 
-
-        Appointment appointment = new Appointment( date, time, doctorName, patientId, patientName, false);
+        Appointment appointment = new Appointment(appointmentId, doctorId, date, time, doctorName, patientId, patientName, false);
         assert appointmentId != null;
         appointmentsRef.child(appointmentId).setValue(appointment)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getActivity(), "Appointment booked successfully", Toast.LENGTH_SHORT).show();
-                    sendNotificationToDoctor(doctorName, date, time, patientName);
+                    sendNotificationToDoctor(doctorId, date, time, patientName);
                     navigateToAppointmentDetailsFragment(date, time, doctorName, patientName);
-
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getActivity(), "Failed to book appointment", Toast.LENGTH_SHORT).show();
@@ -148,7 +161,7 @@ public class BookAppointmentFragment extends Fragment {
                     String doctorToken = dataSnapshot.child("fcmToken").getValue(String.class);
                     if (doctorToken != null) {
                         // FCM server key
-                        String serverKey = "AAAAUlK7nYs:APA91bGZsrIUBXu2L5jxVSAzx8EJ0lxrKaa1g39jMhO98CCWcqLS-_nAw4sSXXzRqRWP0BZZzKQODXR_0I6HSvI7LEqor_Df8HtZOjMNp0BwNfzV8ApUe5NgR6UFdBguYG34lXDmjakL";
+                        String serverKey = "YOUR_SERVER_KEY_HERE";
                         try {
                             URL url = new URL("https://fcm.googleapis.com/fcm/send");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -205,5 +218,46 @@ public class BookAppointmentFragment extends Fragment {
                 .replace(R.id.frame_layout, appointmentDetailsFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+    private void checkAppointmentAvailability(String selectedDate, String selectedTime, String doctorName, AvailabilityCallback callback) {
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
+
+        appointmentsRef.orderByChild("date").equalTo(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isAvailable = true;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Appointment appointment = snapshot.getValue(Appointment.class);
+                    if (appointment != null && appointment.getTime().equals(selectedTime) && appointment.getDoctorName().equals(doctorName)) {
+                        isAvailable = false;
+                        break;
+                    }
+                }
+                callback.onAvailabilityChecked(isAvailable);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+                callback.onAvailabilityChecked(false);
+            }
+        });
+    }
+
+    interface AvailabilityCallback {
+        void onAvailabilityChecked(boolean isAvailable);
+    }
+
+    private void showAppointmentNotAvailableDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Appointment Unavailable")
+                .setMessage("This appointment is already booked.")
+                .setPositiveButton("OK", null);
+
+        AlertDialog dialog = builder.create();
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.dialog_background);
+
+        dialog.show();
     }
 }

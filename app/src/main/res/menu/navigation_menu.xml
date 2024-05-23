@@ -16,6 +16,10 @@
             android:id="@+id/row_profile"
             android:icon="@drawable/ic_baseline_person_24"/>
 
+        <item android:title="Medical History"
+            android:id="@+id/row_Medical_History"
+            android:icon="@drawable/ic_baseline_insert_drive_file_24"/>
+
         <item android:title="settings"
             android:id="@+id/row_settings"
             android:icon="@drawable/ic_baseline_settings_24"/>

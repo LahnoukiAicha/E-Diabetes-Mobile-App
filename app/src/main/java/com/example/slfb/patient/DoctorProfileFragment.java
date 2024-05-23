@@ -49,6 +49,7 @@ public class DoctorProfileFragment extends Fragment {
 
         // Récupérer le nom du docteur sélectionné depuis les arguments du fragment
         String HelperClassDName = getArguments().getString("doctorName");
+        String HelperClassDid = getArguments().getString("doctorId");
 
         // Récupérer les informations du docteur depuis Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("docs");
@@ -85,20 +86,21 @@ public class DoctorProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Naviguer vers la page BookAppointmentFragment
-                navigateToBookAppointmentFragment(HelperClassDName);
+                navigateToBookAppointmentFragment(HelperClassDName,HelperClassDid);
             }
         });
 
         return view;
     }
 
-    private void navigateToBookAppointmentFragment(String doctorName) {
+    private void navigateToBookAppointmentFragment(String doctorName,String doctorId) {
         // Créer une instance de BookAppointmentFragment
         BookAppointmentFragment bookAppointmentFragment = new BookAppointmentFragment();
 
         // Passer le nom du docteur à BookAppointmentFragment
         Bundle args = new Bundle();
         args.putString("doctorName", doctorName);
+        args.putString("doctorId", doctorId);
         bookAppointmentFragment.setArguments(args);
         // Ouvrir le fragment BookAppointmentFragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

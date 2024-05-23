@@ -7,6 +7,15 @@ import java.io.Serializable;
 public class HelperClassD extends HelperClass implements Serializable {
     private String about, address, education, experience;
     private String image;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getImage() {
         return image;

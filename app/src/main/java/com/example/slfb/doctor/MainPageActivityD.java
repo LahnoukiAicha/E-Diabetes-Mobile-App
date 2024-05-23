@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.slfb.R;
 import com.example.slfb.databinding.ActivityMainPageAcitivityDBinding;
+import com.example.slfb.doctor.ChatFragment;
+import com.example.slfb.patient.TodayInfoFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -43,7 +46,7 @@ public class MainPageActivityD extends AppCompatActivity {
                 replaceFragment(new HomePFragment());
             }
             if (itemId == R.id.bottom_record) {
-                replaceFragment(new MyAppointmentsFragment());
+                replaceFragment(new AcceptedAppointmentsFragment());
             }
             if (itemId == R.id.bottom_patient) {
                 replaceFragment(new MyPatientFragment());
@@ -55,6 +58,11 @@ public class MainPageActivityD extends AppCompatActivity {
             return true;
 
         });
+
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> replaceFragment(new MyAppointmentsFragment()));
+
         //navigation drawer
 
         drawerLayout = findViewById(R.id.layDL);
@@ -75,13 +83,14 @@ public class MainPageActivityD extends AppCompatActivity {
                 replaceFragment(new SettingsPFragment());
                 drawerLayout.closeDrawers();
                 return true;
-            } else if (itemId == R.id.row_logout) {
-                Toast.makeText(MainPageActivityD.this, "Logout", Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
-                return true;
             }
             else if (itemId == R.id.row_profile) {
                 replaceFragment(new ProfileFragmentD());
+                drawerLayout.closeDrawers();
+                return true;
+            }
+            else if (itemId == R.id.row_logout) {
+                Toast.makeText(MainPageActivityD.this, "Logout", Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
             }
