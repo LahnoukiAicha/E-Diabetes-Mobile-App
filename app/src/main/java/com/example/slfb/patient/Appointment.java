@@ -1,7 +1,7 @@
 package com.example.slfb.patient;
 
 public class Appointment {
-    private String id;         // Add this line
+    private String id;
     private String doctorId;
     private String date;
     private String time;

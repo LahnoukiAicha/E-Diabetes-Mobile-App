@@ -12,9 +12,8 @@
         android:icon="@drawable/ic_baseline_insert_drive_file_24"
         android:title="Record" />
     <item
-        android:id="@+id/fab"
-        android:title=""
-        android:enabled="false"/>
+        android:enabled="false"
+        android:title="Data" />
     <item
         android:id="@+id/bottom_doctor"
         android:icon="@drawable/ic_baseline_person_24"
@@ -22,7 +21,7 @@
 
     <item
         android:id="@+id/bottom_chat"
-        android:icon="@drawable/ic_baseline_chat_24"
+        android:icon="@drawable/baseline_chat_24"
         android:title="Chat" />
 
 

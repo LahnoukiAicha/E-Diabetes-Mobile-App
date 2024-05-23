@@ -71,18 +71,15 @@ public class ProfileFragmentD extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                    // Assuming there's only one doctor node for simplicity, you might need to adjust this logic if there are multiple doctors
-                    DataSnapshot doctorSnapshot = snapshot.getChildren().iterator().next();
-
-                    name = doctorSnapshot.child("name").getValue(String.class);
-                    email = doctorSnapshot.child("email").getValue(String.class);
-                    phone = doctorSnapshot.child("phone").getValue(String.class);
-                    address = doctorSnapshot.child("address").getValue(String.class);
-                    about = doctorSnapshot.child("about").getValue(String.class);
-                    education = doctorSnapshot.child("education").getValue(String.class);
-                    experience = doctorSnapshot.child("experience").getValue(String.class);
-                    password = doctorSnapshot.child("password").getValue(String.class);
-                    imageUrl = doctorSnapshot.child("image").getValue(String.class);
+                    name = snapshot.child("name").getValue(String.class);
+                    email = snapshot.child("email").getValue(String.class);
+                    phone = snapshot.child("phone").getValue(String.class);
+                    address = snapshot.child("address").getValue(String.class);
+                    about = snapshot.child("about").getValue(String.class);
+                    education = snapshot.child("education").getValue(String.class);
+                    experience = snapshot.child("experience").getValue(String.class);
+                    password = snapshot.child("password").getValue(String.class);
+                    imageUrl = snapshot.child("image").getValue(String.class);
 
 
                     // Set the retrieved data to the TextViews

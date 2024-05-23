@@ -8,6 +8,15 @@ public class HelperClassPatient extends HelperClass {
     private String age,height,weight,sleepDuration;
     private String activityLevel,sex,image;
     private String diabetesSince;
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public HelperClassPatient() {
     }

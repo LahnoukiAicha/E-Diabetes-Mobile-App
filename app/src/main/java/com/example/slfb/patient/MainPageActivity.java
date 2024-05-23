@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.slfb.R;
 import com.example.slfb.databinding.ActivityMainPageBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -29,6 +30,7 @@ public class MainPageActivity extends AppCompatActivity {
         binding = ActivityMainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         replaceFragment(new HomePFragment());
         binding.bottomNavigationView.setBackground(null);
 
@@ -36,15 +38,18 @@ public class MainPageActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.bottom_home) {
                 replaceFragment(new HomePFragment());
-            } else if (itemId == R.id.bottom_record) {
-                replaceFragment(new TodayInfoFragment());
             } else if (itemId == R.id.bottom_doctor) {
                 replaceFragment(new DoctorListFragment());
             } else if (itemId == R.id.bottom_chat) {
                 replaceFragment(new ChatFragment());
+            } else if (itemId == R.id.bottom_record) {
+                replaceFragment(new RecordFragment());
             }
             return true;
         });
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> replaceFragment(new TodayInfoFragment()));
 
         // Ensure the ActionBar's home button is displayed
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -71,11 +76,16 @@ public class MainPageActivity extends AppCompatActivity {
                 replaceFragment(new ProfileFragmentP());
                 drawerLayout.closeDrawers();
                 return true;
-            } else if (itemId == R.id.row_logout) {
+            } else if (itemId == R.id.row_Medical_History) {
+                replaceFragment(new MedicalHistoryFragment());
+                drawerLayout.closeDrawers();
+                return true;
+            }else if (itemId == R.id.row_logout) {
                 Toast.makeText(MainPageActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
             }
+
             return false;
         });
     }

@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="end"
+    android:layout_gravity="end"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textViewMessageSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sent_message_background"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:elevation="2dp"/>
+</LinearLayout>
