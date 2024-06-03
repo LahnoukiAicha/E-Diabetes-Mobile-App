@@ -2,8 +2,8 @@ package com.example.slfb.patient;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.slfb.R;
-import com.example.slfb.doctor.MyAppointmentsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -114,7 +113,7 @@ public class BookAppointmentFragment extends Fragment {
 
                         checkAppointmentAvailability(selectedDate, selectedTime, doctorName, isAvailable -> {
                             if (isAvailable) {
-                                saveAppointmentToFirebase(doctorId,selectedDate, selectedTime, doctorName, patientId, patientName);
+                                saveAppointmentToFirebase(doctorId, selectedDate, selectedTime, doctorName, patientId, patientName);
                             } else {
                                 showAppointmentNotAvailableDialog();
                             }
@@ -133,7 +132,6 @@ public class BookAppointmentFragment extends Fragment {
             Toast.makeText(getActivity(), "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void saveAppointmentToFirebase(String doctorId, String date, String time, String doctorName, String patientId, String patientName) {
         DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
@@ -160,8 +158,8 @@ public class BookAppointmentFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     String doctorToken = dataSnapshot.child("fcmToken").getValue(String.class);
                     if (doctorToken != null) {
-                        // FCM server key
-                        String serverKey = "YOUR_SERVER_KEY_HERE";
+                        String serverKey = "AAAAUlK7nYs:APA91bGZsrIUBXu2L5jxVSAzx8EJ0lxrKaa1g39jMhO98CCWcqLS-_nAw4sSXXzRqRWP0BZZzKQODXR_0I6HSvI7LEqor_Df8HtZOjMNp0BwNfzV8ApUe5NgR6UFdBguYG34lXDmjakL"; // Replace with your actual server key
+
                         try {
                             URL url = new URL("https://fcm.googleapis.com/fcm/send");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -174,22 +172,18 @@ public class BookAppointmentFragment extends Fragment {
 
                             String notificationMessage = "{"
                                     + "\"to\":\"" + doctorToken + "\","
-                                    + "\"data\":{"
+                                    + "\"notification\":{"
                                     + "\"title\":\"New Appointment\","
-                                    + "\"body\":\"You have a new appointment with " + patientName + " on " + date + " at " + time + "\""
+                                    + "\"body\":\"You have a new appointment with " + patientName + " on " + date + " at " + time + "\","
+                                    + "\"click_action\":\"OPEN_MY_APPOINTMENTS_FRAGMENT\"" // Add click action
+                                    + "},"
+                                    + "\"data\":{"
+                                    + "\"fragment_to_open\":\"appointments\"" // Specify the fragment to open
                                     + "}"
                                     + "}";
 
-                            OutputStream outputStream = conn.getOutputStream();
-                            outputStream.write(notificationMessage.getBytes());
-                            outputStream.close();
+                            new SendNotificationTask().execute(conn, notificationMessage);
 
-                            int responseCode = conn.getResponseCode();
-                            if (responseCode == 200) {
-                                // Notification sent successfully
-                            } else {
-                                // Notification failed
-                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -202,6 +196,33 @@ public class BookAppointmentFragment extends Fragment {
                 // Handle error
             }
         });
+    }
+
+    private static class SendNotificationTask extends AsyncTask<Object, Void, Void> {
+        @Override
+        protected Void doInBackground(Object... params) {
+            HttpURLConnection conn = (HttpURLConnection) params[0];
+            String notificationMessage = (String) params[1];
+
+            try {
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(notificationMessage.getBytes());
+                outputStream.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == 200) {
+                    // Notification sent successfully
+                } else {
+                    // Notification failed
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conn.disconnect();
+            }
+
+            return null;
+        }
     }
 
     private void navigateToAppointmentDetailsFragment(String date, String time, String doctorName, String patientName) {
@@ -219,6 +240,7 @@ public class BookAppointmentFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+
     private void checkAppointmentAvailability(String selectedDate, String selectedTime, String doctorName, AvailabilityCallback callback) {
         DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
 

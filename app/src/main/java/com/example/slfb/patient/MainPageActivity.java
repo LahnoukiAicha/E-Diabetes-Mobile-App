@@ -8,14 +8,29 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.slfb.R;
 import com.example.slfb.databinding.ActivityMainPageBinding;
+import com.example.slfb.doctor.LoginActivityDoc;
+import com.example.slfb.doctor.MainPageActivityD;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -23,6 +38,7 @@ public class MainPageActivity extends AppCompatActivity {
     ActivityMainPageBinding binding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private final String CHANNEL_ID = "heads_up_notification_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +66,9 @@ public class MainPageActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> replaceFragment(new TodayInfoFragment()));
+
+        checkAppointments();
+
 
         // Ensure the ActionBar's home button is displayed
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -81,7 +100,7 @@ public class MainPageActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 return true;
             }else if (itemId == R.id.row_logout) {
-                Toast.makeText(MainPageActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                logout();
                 drawerLayout.closeDrawers();
                 return true;
             }
@@ -108,6 +127,75 @@ public class MainPageActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+    private void checkAppointments() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String patientId = currentUser.getUid();
+            DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
+
+            // Query appointments for the current patient where accepted is true
+            appointmentsRef.orderByChild("patientId").equalTo(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    boolean hasAcceptedAppointments = false;
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Appointment appointment = snapshot.getValue(Appointment.class);
+                            if (appointment != null && appointment.isAccepted()) {
+                                hasAcceptedAppointments = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(hasAcceptedAppointments){
+                    showHeadsUpNotification();}
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
+        }
+    }
+
+
+    private void showHeadsUpNotification() {
+        String message = "Your appointment have been accepted ";
+        createNotificationChannel();
+        Intent intent =  new Intent(this, MainPageActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+
+        Notification notification = new Notification.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Ediabetes Notification")
+                .setContentText(message)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.notify(0, notification);
+    }
+    private void createNotificationChannel() {
+        CharSequence name = getString(R.string.channel_name);
+        String description = getString(R.string.channel_description);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(MainPageActivity.this, LoginActivityPatient.class));
+        finish();
     }
 
 }

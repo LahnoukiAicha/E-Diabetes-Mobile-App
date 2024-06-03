@@ -42,6 +42,7 @@ public class ChatFragment extends Fragment {
     private DatabaseReference messagesRef;
     private String currentUserId;
     private String doctorId;
+    private String chatKey;
 
     @Nullable
     @Override
@@ -77,7 +78,35 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        messagesRef.addValueEventListener(new ValueEventListener() {
+        return view;
+    }
+
+    private void fetchDoctorId(String patientId) {
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference("appointments");
+        appointmentsRef.orderByChild("patientId").equalTo(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        doctorId = dataSnapshot.child("doctorId").getValue(String.class);
+                        if (doctorId != null) {
+                            chatKey = generateChatKey(patientId, doctorId);
+                            loadMessages(chatKey);
+                            break; // Assuming you only need one doctorId
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("ChatFragment", "Failed to fetch doctor ID", error.toException());
+            }
+        });
+    }
+
+    private void loadMessages(String chatKey) {
+        messagesRef.child(chatKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageList.clear();
@@ -94,43 +123,23 @@ public class ChatFragment extends Fragment {
                 Log.e("ChatFragment", "Failed to read messages", error.toException());
             }
         });
-
-        return view;
-    }
-
-    private void fetchDoctorId(String patientId) {
-        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference("appointments");
-        appointmentsRef.orderByChild("patientId").equalTo(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        doctorId = dataSnapshot.child("doctorId").getValue(String.class);
-                        if (doctorId != null) {
-                            break; // Assuming you only need one doctorId
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("ChatFragment", "Failed to fetch doctor ID", error.toException());
-            }
-        });
     }
 
     private void sendMessage() {
         String messageText = editTextMessage.getText().toString().trim();
-        if (!TextUtils.isEmpty(messageText) && doctorId != null) {
+        if (!TextUtils.isEmpty(messageText) && chatKey != null) {
             long timestamp = System.currentTimeMillis();
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
             String formattedTime = sdf.format(new Date(timestamp));
             Message message = new Message(messageText, currentUserId, doctorId, formattedTime);
-            messagesRef.push().setValue(message);
+            messagesRef.child(chatKey).push().setValue(message);
             editTextMessage.setText("");
         } else {
             Toast.makeText(getActivity(), "Failed to send message. Doctor ID not found.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String generateChatKey(String patientId, String doctorId) {
+        return patientId + "_" + doctorId;
     }
 }
