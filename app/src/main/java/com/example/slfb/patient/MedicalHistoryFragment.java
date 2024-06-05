@@ -149,10 +149,10 @@ public class MedicalHistoryFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         try {
             Date date = dateFormat.parse(dateTime);
-            return date.getTime(); // Returns timestamp in milliseconds
+            return date.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
-            return 0; // Return 0 or handle error appropriately
+            return 0;
         }
     }
 

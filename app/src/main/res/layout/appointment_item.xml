@@ -1,79 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
     android:layout_margin="8dp"
-    android:background="@drawable/card_bg">
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp">
 
     <LinearLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Patient Information"
+            android:textColor="@color/purple_100"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="Patient Name :"
+            android:textColor="@color/purple_100"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_patient_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Patient Name"
-            android:textColor="#666666"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/tv_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status"
-            android:textColor="#FFA500"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"
+            android:text="Date:"
+            android:textColor="@color/purple_100"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"
+            android:text="Time:"
+            android:textColor="@color/purple_100"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textColor="#333333"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textColor="#333333"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:paddingTop="8dp">
-
-        <TextView
-            android:id="@+id/tv_accept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accept"
-            android:textColor="#007AFF"
-            android:padding="8dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:id="@+id/tv_decline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Decline"
-            android:textColor="#007AFF"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true" />
-    </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>
