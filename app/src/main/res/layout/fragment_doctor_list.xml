@@ -4,8 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frame_layout"
-    tools:context=".patient.DoctorListFragment">
-
+    android:orientation="vertical"
+    tools:context=".patient.DoctorListFragment"
+    android:background="@color/gray">
+    <!-- Header -->
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Your Doctor"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:layout_marginBottom="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

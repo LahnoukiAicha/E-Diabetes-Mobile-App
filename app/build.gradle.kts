@@ -49,8 +49,9 @@ dependencies {
     implementation (libs.picasso)
     implementation (libs.firebase.messaging)
     implementation ("com.android.volley:volley:1.2.1")
-    implementation ("com.google.firebase:firebase-appcheck-playintegrity:16.0.0")
-    implementation ("com.google.android.material:material:1.8.0")
+    implementation ("com.google.firebase:firebase-appcheck-playintegrity:18.0.0")
+    implementation ("com.google.android.material:material:1.12.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 
 

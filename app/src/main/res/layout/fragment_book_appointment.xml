@@ -1,78 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frame_layout"
-    tools:context=".patient.BookAppointmentFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".patient.BookAppointmentFragment">
 
-        <!-- Layout for Date and Time Selection -->
-        <LinearLayout
-            android:id="@+id/topLayout"
-            android:layout_width="match_parent"
+    <!-- Texte d'instructions -->
+    <TextView
+        android:id="@+id/tvInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book your appointment now!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/teal_700"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Suggestion de sélection de date et heure -->
+    <TextView
+        android:id="@+id/tvSuggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a date and time that suits you."
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Layout pour la sélection de date et heure -->
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Sélection de l'heure -->
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:hint="Select Time"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
-            <!-- Time Selection -->
-            <EditText
-                android:id="@+id/etTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Select Time"
-                android:inputType="none"
-                android:focusable="false"
-                android:clickable="true" />
-
-            <ImageButton
-                android:id="@+id/btnTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_calendar_today_24"
-                android:contentDescription="Select Time" />
-
-            <!-- Date Selection -->
-            <EditText
-                android:id="@+id/etDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Select Date"
-                android:inputType="none"
-                android:focusable="false"
-                android:clickable="true" />
-
-            <ImageButton
-                android:id="@+id/btnDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_access_time_24"
-                android:contentDescription="Select Date" />
-        </LinearLayout>
-
-        <!-- CalendarView -->
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btnTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp" />
+            android:src="@drawable/ic_baseline_calendar_today_24"
+            android:contentDescription="Select Time"
+            android:backgroundTint="@color/teal_700"/>
 
-        <!-- Button to Save Appointment -->
-        <Button
-            android:id="@+id/bookButton"
-            android:layout_width="match_parent"
+        <!-- Sélection de la date -->
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Save Appointment" />
+            android:layout_weight="1"
+            android:hint="Select Date"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <ImageButton
+            android:id="@+id/btnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_access_time_24"
+            android:contentDescription="Select Date"
+            android:backgroundTint="@color/teal_700"/>
+    </LinearLayout>
+
+    <!-- CalendarView -->
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
+        android:dateTextAppearance="@style/CalendarViewDateStyle"
+        android:weekDayTextAppearance="@style/CalendarViewWeekDayStyle"
+        android:selectedDateVerticalBar="@color/teal_200"
+        android:focusedMonthDateColor="@android:color/black"
+        android:unfocusedMonthDateColor="@android:color/darker_gray"
+        android:weekNumberColor="@android:color/black" />
+
+    <!-- Bouton pour enregistrer le rendez-vous -->
+    <Button
+        android:id="@+id/bookButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="Save Appointment"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

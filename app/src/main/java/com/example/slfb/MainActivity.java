@@ -2,6 +2,7 @@ package com.example.slfb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,8 +18,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        Log.d("MainActivity", "Before setting content view");
         setContentView(R.layout.activity_main);
+        Log.d("MainActivity", "After setting content view");
+        EdgeToEdge.enable(this);
 
         b1 = findViewById(R.id.patient);
         b1.setOnClickListener(

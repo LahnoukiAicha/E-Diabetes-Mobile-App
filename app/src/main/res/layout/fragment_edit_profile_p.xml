@@ -50,6 +50,7 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Name"
+                 android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -62,6 +63,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
+                android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -73,6 +75,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Phone"
+                android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_phone_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -84,6 +87,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Age"
+                android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_home_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -95,7 +99,8 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Height"
-                android:drawableLeft="@drawable/ic_baseline_home_24"
+                android:textColorHint="@color/gray"
+                android:drawableLeft="@drawable/ic_baseline_height_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
 
@@ -108,7 +113,8 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Weight"
-                android:drawableLeft="@drawable/ic_baseline_person_pin_24"
+                android:textColorHint="@color/gray"
+                android:drawableLeft="@drawable/ic_baseline_monitor_weight_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
             <EditText
@@ -119,7 +125,8 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="SEX"
-            android:drawableLeft="@drawable/ic_baseline_person_pin_24"
+                android:textColorHint="@color/gray"
+            android:drawableLeft="@drawable/baseline_people_24"
             android:drawablePadding="8dp"
             android:textColor="@color/black"/>
 
@@ -131,9 +138,10 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Sleep Duration"
-            android:drawableLeft="@drawable/ic_baseline_person_pin_24"
-            android:drawablePadding="8dp"
-            android:textColor="@color/black"/>
+                android:textColorHint="@color/gray"
+                android:drawableLeft="@drawable/ic_baseline_person_pin_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -142,6 +150,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Activity Level"
+                android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_person_pin_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -152,7 +161,8 @@
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="SEX"
+                android:hint="Diabetes"
+                android:textColorHint="@color/gray"
                 android:drawableLeft="@drawable/ic_baseline_person_pin_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -166,6 +176,7 @@
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Password"
+                android:textColorHint="@color/gray"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/black" />
@@ -174,13 +185,15 @@
         </ScrollView>
     </androidx.cardview.widget.CardView>
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Save"
         android:id="@+id/saveButton"
+        android:layout_width="219dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_200"
+        android:gravity="center"
+        android:text="Save"
         android:textSize="18sp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/lavender"
-        app:cornerRadius = "20dp"/>
+        app:cornerRadius="20dp" />
 
 </LinearLayout>

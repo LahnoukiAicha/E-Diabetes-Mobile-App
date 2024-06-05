@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,18 +54,20 @@ public class HelperClassDAdapter extends RecyclerView.Adapter<HelperClassDAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textViewName;
+        Button bookButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
             textViewName = itemView.findViewById(R.id.text_view_name);
+            bookButton = itemView.findViewById(R.id.button_book);
         }
 
         public void bind(final HelperClassD helperClassD, final OnItemClickListener listener) {
             textViewName.setText(helperClassD.getName());
             Picasso.get().load(helperClassD.getImage()).into(imageView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            bookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClick(helperClassD);

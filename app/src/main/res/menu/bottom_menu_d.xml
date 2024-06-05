@@ -2,26 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item
-        android:id="@+id/bottom_home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home" />
 
     <item
         android:id="@+id/bottom_record"
-        android:icon="@drawable/ic_baseline_insert_drive_file_24"
-        android:title="Record" />
-    <item
-        android:id="@+id/bottom_patient"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/ic_baseline_insert_drive_file_25"
         android:title="My Patients" />
+    <item
+        android:enabled="false"
+        android:title="New" />
+
 
     <item
         android:id="@+id/bottom_chat"
-        android:icon="@drawable/baseline_chat_24"
+        android:icon="@drawable/baseline_chat_25"
         android:title="Chat" />
-
-
 
 
 </menu>

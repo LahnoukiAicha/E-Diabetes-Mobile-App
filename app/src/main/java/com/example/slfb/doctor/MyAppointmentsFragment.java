@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -102,7 +103,6 @@ public class MyAppointmentsFragment extends Fragment {
         }
     }
 
-
     private void showAcceptDeclineDialog(Appointment appointment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Appointment with " + appointment.getPatientName())
@@ -132,7 +132,22 @@ public class MyAppointmentsFragment extends Fragment {
                 .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // If the user declines the appointment, you can simply ignore this action here
+                        appointment.setAccepted(false);
+                        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference().child("appointments");
+                        DatabaseReference appointmentRef = appointmentsRef.child(appointment.getId());
+                        appointmentRef.setValue(appointment)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getContext(), "Appointment declined", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(), "Failed to decline appointment", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 })
                 .show();

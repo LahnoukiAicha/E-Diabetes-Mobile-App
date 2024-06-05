@@ -1,16 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".patient.RecordFragment">
+    android:padding="16dp"
+    android:background="@color/background">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Record Fragment"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/white"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- Header Box -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="end"
+            android:layout_marginBottom="16dp"
+            android:elevation="4dp">
+        </LinearLayout>
 
-</FrameLayout>
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dossier médical personnel"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gardez à jour ce dossier ainsi que ceux des membres de votre famille*.\nApportez-le avec vous à l'occasion d'une consultation médicale."
+            android:textSize="14sp"
+            android:textColor="@color/textSecondary"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Patient Info Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coordonnées personnelles"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/card_background"
+            android:layout_marginBottom="16dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/patientInfoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+
+        <!-- Today's Info Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infos d'aujourd'hui"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/card_background"
+            android:layout_marginBottom="16dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/todayInfoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+
+        <!-- Add the Button for PDF export -->
+        <Button
+            android:id="@+id/btnExportPdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exporter en PDF"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:background="@color/purple_200"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</ScrollView>

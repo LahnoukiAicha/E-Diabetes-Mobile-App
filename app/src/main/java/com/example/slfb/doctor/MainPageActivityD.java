@@ -44,17 +44,13 @@ public class MainPageActivityD extends AppCompatActivity {
         binding = ActivityMainPageAcitivityDBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        replaceFragment(new HomePFragment());
+        replaceFragment(new MyAppointmentsFragment());
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.bottom_home) {
-                replaceFragment(new HomePFragment());
-            } else if (itemId == R.id.bottom_record) {
+            if (itemId == R.id.bottom_record) {
                 replaceFragment(new AcceptedAppointmentsFragment());
-            } else if (itemId == R.id.bottom_patient) {
-                replaceFragment(new MyPatientFragment());
             } else if (itemId == R.id.bottom_chat) {
                 replaceFragment(new ChatFragment());
             }
@@ -79,11 +75,7 @@ public class MainPageActivityD extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.vNV);
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.row_home) {
-                replaceFragment(new HomePFragment());
-                drawerLayout.closeDrawers();
-                return true;
-            } else if (itemId == R.id.row_settings) {
+            if  (itemId == R.id.row_settings) {
                 replaceFragment(new SettingsPFragment());
                 drawerLayout.closeDrawers();
                 return true;

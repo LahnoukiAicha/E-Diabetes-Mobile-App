@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +45,12 @@ public class DoctorListFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 helperClassDList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d("snapchot", String.valueOf(snapshot));
+                    Log.d("snapshot", String.valueOf(snapshot));
                     HelperClassD helperClassD = snapshot.getValue(HelperClassD.class);
-                    assert helperClassD != null;
-                    helperClassD.setId(snapshot.getKey());
-                    helperClassDList.add(helperClassD);
+                    if (helperClassD != null) {
+                        helperClassD.setId(snapshot.getKey());
+                        helperClassDList.add(helperClassD);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }

@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class DoctorProfileFragment extends Fragment {
- ImageView imageViewProfile;
+    private ImageView imageViewProfile;
     private TextView textViewName;
     private TextView textViewAddress;
     private TextView textViewPhone;
@@ -45,30 +45,28 @@ public class DoctorProfileFragment extends Fragment {
         textViewAbout = view.findViewById(R.id.detailAbout);
         textViewEducation = view.findViewById(R.id.detailEducation);
         textViewExperience = view.findViewById(R.id.detailExperience);
-        imageViewProfile=view.findViewById(R.id.detailDoctorImage);
+        imageViewProfile = view.findViewById(R.id.detailDoctorImage);
 
-        // Récupérer le nom du docteur sélectionné depuis les arguments du fragment
-        String HelperClassDName = getArguments().getString("doctorName");
-        String HelperClassDid = getArguments().getString("doctorId");
+        // Get the selected doctor's name and ID from the fragment arguments
+        String doctorName = getArguments().getString("doctorName");
+        String doctorId = getArguments().getString("doctorId");
 
-        // Récupérer les informations du docteur depuis Firebase Realtime Database
+        // Retrieve doctor's information from Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("docs");
-        databaseReference.orderByChild("name").equalTo(HelperClassDName).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByChild("name").equalTo(doctorName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    HelperClassD HelperClassD = snapshot.getValue(HelperClassD.class);
-                    if (HelperClassD != null) {
-                        textViewName.setText(HelperClassD.getName());
-                        textViewAddress.setText(HelperClassD.getAddress());
-                        textViewEmail.setText(HelperClassD.getEmail());
-                        textViewPhone.setText(HelperClassD.getPhone());
-                        textViewAbout.setText(HelperClassD.getAbout());
-                        textViewEducation.setText(HelperClassD.getEducation());
-                        textViewExperience.setText(HelperClassD.getExperience());
-                        Picasso.get().load(HelperClassD.getImage()).into(imageViewProfile);
-
-
+                    HelperClassD helperClassD = snapshot.getValue(HelperClassD.class);
+                    if (helperClassD != null) {
+                        textViewName.setText(helperClassD.getName());
+                        textViewAddress.setText(helperClassD.getAddress());
+                        textViewEmail.setText(helperClassD.getEmail());
+                        textViewPhone.setText(helperClassD.getPhone());
+                        textViewAbout.setText(helperClassD.getAbout());
+                        textViewEducation.setText(helperClassD.getEducation());
+                        textViewExperience.setText(helperClassD.getExperience());
+                        Picasso.get().load(helperClassD.getImage()).into(imageViewProfile);
                         break;
                     }
                 }
@@ -76,33 +74,34 @@ public class DoctorProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Gérer les erreurs
+                // Handle errors
             }
         });
 
-        // Ajouter un OnClickListener au bouton "Book Appointment"
+        // Add an OnClickListener to the "Book Appointment" button
         Button bookAppointmentButton = view.findViewById(R.id.buttonBookAppointment);
         bookAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Naviguer vers la page BookAppointmentFragment
-                navigateToBookAppointmentFragment(HelperClassDName,HelperClassDid);
+                // Navigate to the BookAppointmentFragment
+                navigateToBookAppointmentFragment(doctorName, doctorId);
             }
         });
 
         return view;
     }
 
-    private void navigateToBookAppointmentFragment(String doctorName,String doctorId) {
-        // Créer une instance de BookAppointmentFragment
+    private void navigateToBookAppointmentFragment(String doctorName, String doctorId) {
+        // Create an instance of BookAppointmentFragment
         BookAppointmentFragment bookAppointmentFragment = new BookAppointmentFragment();
 
-        // Passer le nom du docteur à BookAppointmentFragment
+        // Pass the doctor's name and ID to BookAppointmentFragment
         Bundle args = new Bundle();
         args.putString("doctorName", doctorName);
         args.putString("doctorId", doctorId);
         bookAppointmentFragment.setArguments(args);
-        // Ouvrir le fragment BookAppointmentFragment
+
+        // Open the BookAppointmentFragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, bookAppointmentFragment);
         transaction.addToBackStack(null);

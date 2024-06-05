@@ -1,6 +1,5 @@
 package com.example.slfb.patient;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +12,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -39,13 +40,14 @@ public class MainPageActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private final String CHANNEL_ID = "heads_up_notification_channel";
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private static final String KEY_NOTIFIED = "notified";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
         replaceFragment(new HomePFragment());
         binding.bottomNavigationView.setBackground(null);
@@ -68,7 +70,6 @@ public class MainPageActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> replaceFragment(new TodayInfoFragment()));
 
         checkAppointments();
-
 
         // Ensure the ActionBar's home button is displayed
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -99,7 +100,7 @@ public class MainPageActivity extends AppCompatActivity {
                 replaceFragment(new MedicalHistoryFragment());
                 drawerLayout.closeDrawers();
                 return true;
-            }else if (itemId == R.id.row_logout) {
+            } else if (itemId == R.id.row_logout) {
                 logout();
                 drawerLayout.closeDrawers();
                 return true;
@@ -109,16 +110,12 @@ public class MainPageActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -128,6 +125,7 @@ public class MainPageActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
     private void checkAppointments() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -149,8 +147,18 @@ public class MainPageActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(hasAcceptedAppointments){
-                    showHeadsUpNotification();}
+                    if (hasAcceptedAppointments) {
+                        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                        boolean notified = preferences.getBoolean(KEY_NOTIFIED, false);
+                        if (!notified) {
+                            showHeadsUpNotification();
+                            preferences.edit().putBoolean(KEY_NOTIFIED, true).apply();
+                        }
+                    } else {
+                        // Reset the notified flag if there are no accepted appointments
+                        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                        preferences.edit().putBoolean(KEY_NOTIFIED, false).apply();
+                    }
                 }
 
                 @Override
@@ -161,11 +169,10 @@ public class MainPageActivity extends AppCompatActivity {
         }
     }
 
-
     private void showHeadsUpNotification() {
-        String message = "Your appointment have been accepted ";
+        String message = "Your appointment has been accepted";
         createNotificationChannel();
-        Intent intent =  new Intent(this, MainPageActivity.class);
+        Intent intent = new Intent(this, MainPageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
@@ -182,6 +189,7 @@ public class MainPageActivity extends AppCompatActivity {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.notify(0, notification);
     }
+
     private void createNotificationChannel() {
         CharSequence name = getString(R.string.channel_name);
         String description = getString(R.string.channel_description);
@@ -192,10 +200,10 @@ public class MainPageActivity extends AppCompatActivity {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
+
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(MainPageActivity.this, LoginActivityPatient.class));
         finish();
     }
-
 }

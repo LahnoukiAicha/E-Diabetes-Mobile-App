@@ -1,138 +1,239 @@
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frame_layout"
     android:orientation="vertical"
+    android:background="@color/lavender"
+    android:padding="16dp"
     tools:context=".patient.DoctorProfileFragment">
 
+        <!-- Doctor Image -->
+        <ImageView
+            android:id="@+id/detailDoctorImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/aklogo"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Doctor Name -->
         <TextView
             android:id="@+id/detailDoctorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             android:text="Doctor Name"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/purple_200"
+            android:textColor="#FFFFFF"
             android:layout_gravity="center"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardImage"
-            android:layout_width="380dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp">
-
-            <ImageView
-                android:id="@+id/detailDoctorImage"
-                android:layout_width="202dp"
-                android:layout_height="167dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/detailDoctorAddress"
-            android:layout_width="wrap_content"
+        <!-- Email and Phone Number -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Address:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:textSize="18sp"/>
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/detailDoctorAddressValue"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/detailDoctorEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/detailDoctorEmailValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/detailDoctorPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number:"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/detailDoctorPhoneNumberValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/detailDoctorAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address:"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/detailDoctorAddressValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!-- Experience and Patients -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:textSize="18sp"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/detailDoctorEmail"
-            android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Experience"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/detailExperience"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Patients"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/detailDoctorPatients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1000+"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"/>
+                </LinearLayout>
+        </LinearLayout>
+
+        <!-- About and Education Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/detailDoctorEmailValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:textSize="18sp"/>
+                <!-- About Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp"> <!-- Add margin end to create gap -->
 
-        <TextView
-            android:id="@+id/detailDoctorPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone Number:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="About:"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/detailDoctorPhoneNumberValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/detailAbout"
+                            android:layout_width="155dp"
+                            android:layout_height="58dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/about_background"
+                            android:padding="10dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="10dp"> <!-- Add margin end to create gap -->
 
-        <TextView
-            android:id="@+id/detailAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Education:"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/detailExperience"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Experience:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/detailEducation"
+                            android:layout_width="155dp"
+                            android:layout_height="58dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/about_background"
+                            android:padding="10dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/detailEducation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Education:"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
 
+        </LinearLayout>
+
+        <!-- Book Appointment Button -->
         <Button
             android:id="@+id/buttonBookAppointment"
-            android:layout_width="wrap_content"
+            android:layout_width="245dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="Book Appointment" />
-
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/purple_200"
+            android:padding="12dp"
+            android:text="Book Appointment"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 </LinearLayout>

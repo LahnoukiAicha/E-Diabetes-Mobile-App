@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <RelativeLayout
+
+    <!-- Doctor List Item -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        android:background="@color/white"
+        app:cardElevation="4dp">
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="doctor_image" />
-
-        <TextView
-            android:id="@+id/text_view_name"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doctor Name"
-            android:textColor="@color/lavender"
-            android:textSize="20sp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_toEndOf="@id/image_view" />
+            android:background="@color/white"
+            android:padding="16dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circular_background"
+                android:contentDescription="doctor_image" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lavender"
+                android:textSize="20sp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/image_view"
+                android:layout_toRightOf="@id/image_view" />
+
+            <Button
+                android:id="@+id/button_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book Now"
+                android:backgroundTint="@color/lavender"
+                android:textColor="@android:color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>

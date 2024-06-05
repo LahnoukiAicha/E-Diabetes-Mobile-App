@@ -100,9 +100,10 @@ public class TodayInfoFragment extends Fragment {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             MedicalHistoryFragment medicalHistoryFragment = new MedicalHistoryFragment();
+                            assert getActivity() != null;
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                             transaction.replace(R.id.frame_layout, medicalHistoryFragment);
-                            transaction.addToBackStack(null);  // Optional: Add transaction to back stack
+                            transaction.addToBackStack(null);
                             transaction.commit();
                         } else {
                             Toast.makeText(getActivity(), "Failed to save data. Please try again.", Toast.LENGTH_SHORT).show();
