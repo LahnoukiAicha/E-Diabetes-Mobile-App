@@ -12,6 +12,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#1695A3</color>
     <color name="gray">#808080</color>
+    <color name="blue">#0047AB</color>
+    <color name="light_beige">#F5F5DC</color>
+
 
     <color name="background">#FFFFFF</color>
     <color name="primary">#6200EE</color>

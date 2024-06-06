@@ -3,6 +3,7 @@ package com.example.slfb.patient;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,8 +22,6 @@ import android.widget.Toast;
 
 import com.example.slfb.R;
 import com.example.slfb.databinding.ActivityMainPageBinding;
-import com.example.slfb.doctor.LoginActivityDoc;
-import com.example.slfb.doctor.MainPageActivityD;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,8 +47,18 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Toolbar toolbar = findViewById(R.id.toolbar); // Find the Toolbar
+        setSupportActionBar(toolbar); // Set Toolbar as ActionBar
+
+        drawerLayout = findViewById(R.id.layDL);
 
         replaceFragment(new HomePFragment());
+
+        // Ensure bottomNavigationView is initialized properly
+        if (binding.bottomNavigationView == null) {
+            throw new NullPointerException("bottomNavigationView is null. Check if the ID is correct in the layout file.");
+        }
+
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -67,21 +76,37 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        if (fab == null) {
+            throw new NullPointerException("FloatingActionButton is null. Check if the ID is correct in the layout file.");
+        }
+
         fab.setOnClickListener(view -> replaceFragment(new TodayInfoFragment()));
 
         checkAppointments();
 
         // Ensure the ActionBar's home button is displayed
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } else {
+            throw new NullPointerException("getSupportActionBar() returned null.");
+        }
 
         // Navigation drawer setup
         drawerLayout = findViewById(R.id.layDL);
+        if (drawerLayout == null) {
+            throw new NullPointerException("DrawerLayout is null. Check if the ID is correct in the layout file.");
+        }
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
         // Set up navigation view
         NavigationView navigationView = findViewById(R.id.vNV);
+        if (navigationView == null) {
+            throw new NullPointerException("NavigationView is null. Check if the ID is correct in the layout file.");
+        }
+
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.row_home) {

@@ -3,6 +3,7 @@ package com.example.slfb.doctor;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -43,6 +44,11 @@ public class MainPageActivityD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainPageAcitivityDBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Toolbar toolbar = findViewById(R.id.toolbar); // Find the Toolbar
+        setSupportActionBar(toolbar); // Set Toolbar as ActionBar
+
+        drawerLayout = findViewById(R.id.layDL);
 
         replaceFragment(new MyAppointmentsFragment());
         binding.bottomNavigationView.setBackground(null);

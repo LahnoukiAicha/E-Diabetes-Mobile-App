@@ -36,9 +36,20 @@ import java.util.Locale;
 
 public class MedicalHistoryFragment extends Fragment {
 
+    private static final String ARG_SHOW_GRAPH_ONLY = "show_graph_only";
+
+    private boolean showGraphOnly;
     private LinearLayout llHistoryData;
     private LineChart lineChart;
     private DatabaseReference databaseReference;
+
+    public static MedicalHistoryFragment newInstance(boolean showGraphOnly) {
+        MedicalHistoryFragment fragment = new MedicalHistoryFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_SHOW_GRAPH_ONLY, showGraphOnly);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -47,6 +58,10 @@ public class MedicalHistoryFragment extends Fragment {
 
         llHistoryData = view.findViewById(R.id.llHistoryData);
         lineChart = view.findViewById(R.id.lineChart);
+
+        if (getArguments() != null) {
+            showGraphOnly = getArguments().getBoolean(ARG_SHOW_GRAPH_ONLY, false);
+        }
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("today_info");
@@ -63,8 +78,6 @@ public class MedicalHistoryFragment extends Fragment {
             userReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Use a StringBuilder to construct the history data
-                    StringBuilder historyData = new StringBuilder();
                     List<Entry> insulinEntries = new ArrayList<>();
                     List<Entry> glucoseEntries = new ArrayList<>();
 
@@ -72,7 +85,9 @@ public class MedicalHistoryFragment extends Fragment {
                     for (DataSnapshot dataObjectSnapshot : dataSnapshot.getChildren()) {
                         TodayInfo dataObject = dataObjectSnapshot.getValue(TodayInfo.class);
                         if (dataObject != null) {
-                            addDataCard(dataObject);
+                            if (!showGraphOnly) {
+                                addDataCard(dataObject);
+                            }
 
                             // Assuming dateTime is in the format "yyyy-MM-dd HH:mm:ss" and parsing it to get x-axis values
                             int xValue = (int) parseDateTimeToXValue(dataObject.getDateTime());
@@ -149,10 +164,10 @@ public class MedicalHistoryFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         try {
             Date date = dateFormat.parse(dateTime);
-            return date.getTime();
+            return date.getTime(); // Returns timestamp in milliseconds
         } catch (ParseException e) {
             e.printStackTrace();
-            return 0;
+            return 0; // Return 0 or handle error appropriately
         }
     }
 

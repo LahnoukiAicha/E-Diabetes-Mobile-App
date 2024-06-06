@@ -39,7 +39,7 @@
         android:layout_below="@id/header_layout"
         android:layout_above="@+id/layout_send_message"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="100dp" />
 
     <LinearLayout
         android:id="@+id/layout_send_message"

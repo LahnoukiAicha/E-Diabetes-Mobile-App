@@ -8,19 +8,23 @@
 
         <item
             android:id="@+id/row_home"
+            android:color="@color/black"
             android:title="home"
             android:icon="@drawable/ic_baseline_home_24">
         </item>
 
         <item android:title="Profile"
             android:id="@+id/row_profile"
+            android:color="@color/black"
             android:icon="@drawable/ic_baseline_person_24"/>
 
         <item android:title="Medical History"
+            android:color="@color/black"
             android:id="@+id/row_Medical_History"
             android:icon="@drawable/ic_baseline_insert_drive_file_24"/>
 
         <item android:title="settings"
+            android:color="@color/black"
             android:id="@+id/row_settings"
             android:icon="@drawable/ic_baseline_settings_24"/>
 
@@ -29,7 +33,7 @@
     <group android:checkableBehavior="single">
         <item android:title="logout"
             android:id="@+id/row_logout"
-            android:icon="@drawable/ic_baseline_search_24"/>
+            android:icon="@drawable/ic_baseline_logout_24"/>
     </group>
 
 </menu>

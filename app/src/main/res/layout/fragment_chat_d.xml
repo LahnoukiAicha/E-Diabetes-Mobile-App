@@ -3,21 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".doctor.ChatFragment"
-    android:id="@+id/frame_layout">
+    android:id="@+id/frame_layout"
+    android:background="@color/white">
+
+    <!-- Header layout for doctor's profile -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="#A1E9E7">
+
+        <ImageView
+            android:id="@+id/doctor_profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/aklogo" />
+
+        <TextView
+            android:id="@+id/patient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My patient"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_below="@id/header_layout"
         android:layout_above="@+id/layout_send_message"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp" />
+
 
     <LinearLayout
         android:id="@+id/layout_send_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="60dp"
+
+       >
 
         <EditText
             android:id="@+id/editTextMessage"
@@ -25,10 +58,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Type a message"
+            android:inputType="text"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
             android:minHeight="48dp" />
 
         <Button
-            android:id= "@+id/buttonSend"
+            android:id="@+id/buttonSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send" />
