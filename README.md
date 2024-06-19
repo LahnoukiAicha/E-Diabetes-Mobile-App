@@ -1,7 +1,8 @@
 # E-Diabetes Mobile App
 
 ## Overview
-Developed by Aicha Lahknouki, Salma Nhili, and Meryem Mouride. The E-Diabetes Mobile App is a comprehensive healthcare application designed for diabetic patients. It enables users to manage medical appointments, consult health records, and track health conditions effectively. Built using Java for Android and Firebase for backend services, the application ensures data security and real-time operations.
+Developed by Aicha Lahknouki, Salma Nhili, and Meryem Mouride. The E-Diabetes Mobile App is a comprehensive healthcare application designed for diabetic patients. 
+It enables users to manage medical appointments, consult health records, and track health conditions effectively. Built using Java for Android and Firebase for backend services, the application ensures data security and real-time operations.
 
 
 
@@ -17,23 +18,34 @@ Developed by Aicha Lahknouki, Salma Nhili, and Meryem Mouride. The E-Diabetes Mo
 ## Features
 
 1.User Authentication: Secure login and registration features for patients and doctors.
+
 2.Health Record Management: Patients can access and manage their medical records, appointment histories, and health data.
+
 3.Appointment Scheduling: Easy scheduling of doctor appointments with real-time updates.
+
 4.Real-time Data Tracking: Monitor and track health metrics such as glucose levels and insulin doses.
+
 5.Secure Communication: Encrypted messaging system for patients to communicate with their healthcare providers.
+
 3.Notifications: Receive real-time notifications for appointment reminders and health tips.
 
 ## Technologies Used
-Java for Android: Primary programming language for application development.
-Firebase: Utilized for authentication, data storage, real-time database management, and cloud messaging.
+
+1.Java for Android: Primary programming language for application development.
+
+2.Firebase: Utilized for authentication, data storage, real-time database management, and cloud messaging.
 
 ## Installation
 To get started with the E-Diabetes Mobile App:
 
 # Clone the repository:
+
 1.git clone https://github.com/LahnoukiAicha/e-diabetes-mobile-app.git
+
 2.Open the project in Android Studio or your preferred IDE.
+
 3.Build the project and run it on an Android device or emulator.
 
 ## Contribution
+
 Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
